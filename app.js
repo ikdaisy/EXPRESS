@@ -13,7 +13,7 @@ app.get("/",(req,res)=>{
 
 app.post("/about",(req,res)=>{
     console.log(req.body);
-    res.status(201).send("About")
+    res.status(201).send("About page")
   
     
 })
