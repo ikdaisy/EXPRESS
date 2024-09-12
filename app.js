@@ -1,14 +1,15 @@
 // ---------------import modules -----------------------
 import express from "express"
 import Connection from "./connection.js"
-
-
-
-
+import router from "./router.js"
+import env from "dotenv";//import dotenv 
+env.config();//config the dotenv into the project
 
 
 const app = express()
-const PORT=3002
+app.use(express.static("pages"))
+app.use('/api',router)
+
 // const path= require("path")
 
 // const bodyParser=require ("body-parser")
@@ -20,9 +21,9 @@ const PORT=3002
 // app.use(express.urlencoded());
 
 
-app.get("/hello",(req,res)=>{
-    console.log("Router");
-    res.send("Hello")
+// app.get("/hello",(req,res)=>{
+//     console.log("Router");
+//     res.send("Hello")
 
     // -------------------id param---------------------------------------------------------
     //give /hello/:id1/:id2 in get
@@ -37,9 +38,9 @@ app.get("/hello",(req,res)=>{
     //give /hello in get
     //give /hello?name=alan&age=29 in thunder Client http
 
-     console.log(req.query);
-    const {name,age}= req.query
-    console.log(name,age);
+    //  console.log(req.query);
+    // const {name,age}= req.query
+    // console.log(name,age);
     
     //    -----------------------------------------------------------------------------------
     
@@ -52,7 +53,7 @@ app.get("/hello",(req,res)=>{
     // console.log(__dirname);
     // res.sendFile(path.join(__dirname,"pages","index.html"))  
     
-})
+// })
 
 // function Token(req,res,next){
 //     console.log("Middle ware");
@@ -65,15 +66,15 @@ app.get("/hello",(req,res)=>{
 //     res.status(201).send("About page")
 // })
 
-app.get("*",(req,res)=>{
-    res.status(404).send("Invalid")
-})
+// app.get("*",(req,res)=>{
+//     res.status(404).send("Invalid")
+// })
 
 
 Connection().then(()=>{
     console.log("Database Connected");
-    app.listen(PORT,()=>{
-        console.log(`Server: http://localhost:${PORT}`);
+    app.listen(process.env.PORT,()=>{
+        console.log(`Server: http://localhost:${process.env.PORT}`);
     })
     
 }).catch((error)=>{
